@@ -17,112 +17,107 @@ import com.tecsup.petclinic.entities.Pet;
 import com.tecsup.petclinic.exception.PetNotFoundException;
 import com.tecsup.petclinic.services.PetService;
 
-/**
- * 
- * @author jgomezm
- *
- */
 @RestController
 public class PetController {
 
-	@Autowired
-	private PetService service;
-	 
-	/**
-	 * 
-	 * @return
-	 */
-	// @JsonIgnore
-	@GetMapping("/pets")
-	public Iterable<Pet> getPets() {
-		//
-		return service.findAll();
-	}
+    @Autowired
+    private PetService service;
 
-	
-	/**
-	 * Create Pet
-	 * 
-	 * @param newPet
-	 * @return
-	 */
-	/*
-	@PostMapping("/pets")
-	@ResponseStatus(HttpStatus.CREATED)
-	Pet create(@RequestBody Pet newPet) {
-		return service.create(newPet);
-	}*/
-	
-	/**
-	 *  Create Pet
-	 * @param newPet
-	 * @return
-	 */
-	@PostMapping("/pets")
-	@ResponseStatus(HttpStatus.CREATED)
-	Pet create(@RequestBody PetDTO newPet) {
-		Pet pet = new Pet();
-		pet.setName(newPet.getName());
-		pet.setOwnerId(newPet.getOwnerId());
-		pet.setTypeId(newPet.getTypeId());
-		pet.setBirthDate(newPet.getBirthDate());
-		return service.create(pet);
-	}
-	
-	
-	
-	/**
-	 * Find by id
-	 * 
-	 * @param id
-	 * @return
-	 * @throws PetNotFoundException
-	 */
-	@GetMapping("/pets/{id}")
-	ResponseEntity<Pet> findOne(@PathVariable Long id) {
-		try {
-			return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-		} catch (PetNotFoundException e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	}
+    /**
+     * 
+     * @return
+     */
+    // @JsonIgnore
+    @GetMapping("/pets")
+    public Iterable<Pet> getPets() {
+        //
+        return service.findAll();
+    }
 
-	/**
-	 * Save or update
-	 * 
-	 * @param newPet
-	 * @param id
-	 * @return
-	 */
-	@PutMapping("/pets/{id}")
-	Pet saveOrUpdate(@RequestBody PetDTO newPet, @PathVariable Long id) {
-		Pet pet = null;
-		try {
-			pet = service.findById(id);
-			pet.setName(newPet.getName());
-			pet.setOwnerId(newPet.getOwnerId());
-			pet.setTypeId(newPet.getTypeId());
-			service.update(pet);
-		} catch (PetNotFoundException e) {
-			pet = service.create(pet);
-		}
-		return pet;
-	}
+    /**
+     * Create Pet
+     * 
+     * @param newPet
+     * @return
+     */
+    /*
+     * @PostMapping("/pets")
+     * 
+     * @ResponseStatus(HttpStatus.CREATED)
+     * Pet create(@RequestBody Pet newPet) {
+     * return service.create(newPet);
+     * }
+     */
 
-	/**
-	 * 
-	 * @param id
-	 */
-	@DeleteMapping("/pets/{id}")
-	ResponseEntity<String> delete(@PathVariable Long id) {
+    /**
+     * Create Pet
+     * 
+     * @param newPet
+     * @return
+     */
+    @PostMapping("/pets")
+    @ResponseStatus(HttpStatus.CREATED)
+    Pet create(@RequestBody PetDTO newPet) {
+        Pet pet = new Pet();
+        pet.setName(newPet.getName());
+        pet.setOwnerId(newPet.getOwnerId());
+        pet.setTypeId(newPet.getTypeId());
+        pet.setBirthDate(newPet.getBirthDate());
+        return service.create(pet);
+    }
 
-		try {
-			service.delete(id);
-			return new ResponseEntity<>("" + id, HttpStatus.OK);
-		} catch (PetNotFoundException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
-	}
+    /**
+     * Find by id
+     * 
+     * @param id
+     * @return
+     * @throws PetNotFoundException
+     */
+    @GetMapping("/pets/{id}")
+    ResponseEntity<Pet> findOne(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+        } catch (PetNotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Save or update
+     * 
+     * @param newPet
+     * @param id
+     * @return
+     */
+    @PutMapping("/pets/{id}")
+    Pet saveOrUpdate(@RequestBody PetDTO newPet, @PathVariable Long id) {
+        Pet pet = null;
+        try {
+            pet = service.findById(id);
+            pet.setName(newPet.getName());
+            pet.setOwnerId(newPet.getOwnerId());
+            pet.setTypeId(newPet.getTypeId());
+            service.update(pet);
+        } catch (PetNotFoundException e) {
+            pet = service.create(pet);
+        }
+        return pet;
+    }
+
+    /**
+     * 
+     * @param id
+     */
+    @DeleteMapping("/pets/{id}")
+    ResponseEntity<String> delete(@PathVariable Long id) {
+
+        try {
+            service.delete(id);
+            return new ResponseEntity<>("" + id, HttpStatus.OK);
+        } catch (PetNotFoundException e) {
+            // TODO Auto-generated catch block
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
