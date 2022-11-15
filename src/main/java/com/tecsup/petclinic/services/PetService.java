@@ -12,11 +12,7 @@ import com.tecsup.petclinic.exception.PetNotFoundException;
  */
 public interface PetService {
 
-	/**
-	 * 
-	 * @param pet
-	 * @return
-	 */
+
 	Pet create(Pet pet);
 
 	/**
