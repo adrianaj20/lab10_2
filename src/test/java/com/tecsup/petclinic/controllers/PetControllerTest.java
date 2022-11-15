@@ -72,7 +72,6 @@ public class PetControllerTest {
 		String NAME_PET = "Leo";
 		int TYPE_ID = 1;
 		int OWNER_ID = 1;
-		String DATE_REF = "2000-09-07";
 
 		/*
 		 {
@@ -80,7 +79,6 @@ public class PetControllerTest {
 		    "name": "Leo",
 		    "typeId": 1,
 		    "ownerId": 1,
-		    "birthDate": "2000-09-07"
 		}
 		 */
 		
@@ -91,8 +89,7 @@ public class PetControllerTest {
 				.andExpect(jsonPath("$.id", is(1)))
 				.andExpect(jsonPath("$.name", is(NAME_PET)))
 				.andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-				.andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
-				.andExpect(jsonPath("$.birthDate", is(DATE_REF)));
+				.andExpect(jsonPath("$.ownerId", is(OWNER_ID)));
 
 	}
 
@@ -121,10 +118,8 @@ public class PetControllerTest {
     	String NAME_PET = "BeethovenY";
 		int TYPE_ID = 1;
 		int OWNER_ID = 1;
-		String DATE_REF = "2021-10-03";
-		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse(DATE_REF);
 		
-		PetDTO newPet = new PetDTO(NAME_PET, TYPE_ID, OWNER_ID, DATE);
+		PetDTO newPet = new PetDTO(NAME_PET, TYPE_ID, OWNER_ID, null);
 	    
 		logger.info(newPet.toString());
 		logger.info(om.writeValueAsString(newPet));
@@ -136,8 +131,7 @@ public class PetControllerTest {
 	            .andExpect(status().isCreated())
 	            .andExpect(jsonPath("$.name", is(NAME_PET)))
 	            .andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-	            .andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
-	    		.andExpect(jsonPath("$.birthDate", is(DATE_REF)));
+	            .andExpect(jsonPath("$.ownerId", is(OWNER_ID)));
     
 	}
     
