@@ -42,7 +42,6 @@ public class OwnerController {
     }
 /**
 	 * Find by id
-	 * 
 	 * @param id
 	 * @return
 	 * @throws OwnerNotFoundException
