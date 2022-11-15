@@ -47,7 +47,7 @@ public class OwnerController {
 	 * @return
 	 * @throws OwnerNotFoundException
 	 */
-    @GetMapping("/pets/{id}")
+    @GetMapping("/owners/{id}")
     ResponseEntity<Owner> findOne(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(ownerService.findById(id), HttpStatus.OK);
