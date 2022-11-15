@@ -88,7 +88,7 @@ public class OwnerControllerTest {
 	 */
 	@Test
 	public void testFindOwnerKO() throws Exception {
-        int ID_SEARCH = 6;
+        int ID_SEARCH = 666;
         mockMvc.perform(get("/owners/" + ID_SEARCH)) // Finding object with ID = 666
 				.andExpect(status().isNotFound());
 
@@ -102,11 +102,11 @@ public class OwnerControllerTest {
     public void testCreateOwner() throws Exception {
         String FIRST_NAME_OWNER = "Lennard";
         String LAST_NAME_OWNER = "Idone";
-		String ADDRESS = "Lima";
+		String ADDRESS = "Santa anita";
 		String CITY = "Lima";
         String TELEPHONE = "993046524";
 
-        OwnerDTO newOwner = new OwnerDTO(FIRST_NAME_OWNER, LAST_NAME_OWNER, ADDRESS, CITY, TELEPHONE, null);
+        OwnerDTO newOwner = new OwnerDTO(FIRST_NAME_OWNER, LAST_NAME_OWNER, ADDRESS, CITY, TELEPHONE);
 
         logger.info(newOwner.toString());
         logger.info(om.writeValueAsString(newOwner));
@@ -132,11 +132,11 @@ public class OwnerControllerTest {
     public void testDeleteOwner() throws Exception {
         String FIRST_NAME_OWNER = "Lennard";
         String LAST_NAME_OWNER = "Idone";
-		String ADDRESS = "Lima";
+		String ADDRESS = "Santa anita";
 		String CITY = "Lima";
         String TELEPHONE = "993046524";
 
-        OwnerDTO newOwner = new OwnerDTO(FIRST_NAME_OWNER, LAST_NAME_OWNER, ADDRESS, CITY, TELEPHONE, null);
+        OwnerDTO newOwner = new OwnerDTO(FIRST_NAME_OWNER, LAST_NAME_OWNER, ADDRESS, CITY, TELEPHONE);
         ResultActions mvcActions = mockMvc.perform(post("/owners")
 	            .content(om.writeValueAsString(newOwner))
 	            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))

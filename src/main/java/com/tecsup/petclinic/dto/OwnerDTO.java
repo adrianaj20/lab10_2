@@ -1,7 +1,4 @@
 package com.tecsup.petclinic.dto;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OwnerDTO {
     private long id;
@@ -10,18 +7,14 @@ public class OwnerDTO {
     private String address;
     private String city;
     private String telephone;
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date birthDate;
-
-    public OwnerDTO(String name, String lastName, String address, String city, String telephone, Date birthDate) {
+   
+    public OwnerDTO(String name, String lastName, String address, String city, String telephone) {
         super();
         this.name = name;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.telephone = telephone;
-        this.birthDate = birthDate;
     }
     public long getId() {
         return id;
@@ -61,14 +54,8 @@ public class OwnerDTO {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    public Date getBirthDate() {
-        return birthDate;
-    }
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
     @Override
     public String toString() {
-        return "Owner [id=" + id +", name=" + name + ", lastName=" + lastName+", address=" + address+",city=" + city+",telephone="+telephone+", birthDate=" + birthDate+"]";
+        return "Owner [id=" + id +", name=" + name + ", lastName=" + lastName+", address=" + address+",city=" + city+",telephone="+telephone+"]";
     }
 }
