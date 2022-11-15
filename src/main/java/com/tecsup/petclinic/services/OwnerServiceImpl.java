@@ -1,6 +1,5 @@
 package com.tecsup.petclinic.services;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +42,11 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public List<Owner> findByFirstname(String firstname) {
         return ownerRepository.findByFirstname(firstname);
+    }
+
+    @Override
+    public Iterable<Owner> findAll() {
+        return ownerRepository.findAll();
     }
 
 }

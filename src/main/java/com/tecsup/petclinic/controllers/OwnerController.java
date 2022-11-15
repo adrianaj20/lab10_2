@@ -1,7 +1,5 @@
 package com.tecsup.petclinic.controllers;
 
-import java.security.Provider.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tecsup.petclinic.dto.PetDTO;
+import com.tecsup.petclinic.dto.OwnerDTO;
 import com.tecsup.petclinic.entities.Owner;
+import com.tecsup.petclinic.exception.OwnerNotFoundException;
 import com.tecsup.petclinic.services.OwnerService;
 
 @RestController
@@ -31,10 +30,23 @@ public class OwnerController {
 
     @PostMapping("/owners")
     @ResponseStatus(HttpStatus.CREATED)
-    Owner create(@RequestBody OwnerDTO ownerDTO) {
-        return ownerService.create(ownerDTO);
+    Owner create(@RequestBody OwnerDTO newOwner) {
+        Owner owner = new Owner();
+        owner.setFirstname(newOwner.getName());
+        owner.setLastname(newOwner.getLastName());
+        owner.setAddress(newOwner.getAddress());
+        owner.setCity(newOwner.getCity());
+        owner.setTelephone(newOwner.getTelephone());
+        
+        return ownerService.create(owner);
     }
-
+/**
+	 * Find by id
+	 * 
+	 * @param id
+	 * @return
+	 * @throws OwnerNotFoundException
+	 */
     @GetMapping("/pets/{id}")
     ResponseEntity<Owner> findOne(@PathVariable Long id) {
         try {
@@ -49,13 +61,19 @@ public class OwnerController {
         Owner owner = null;
         try {
             owner = ownerService.findById(id);
+            owner.setFirstname(newOwner.getName());
+            owner.setLastname(newOwner.getLastName());
+            owner.setAddress(newOwner.getAddress());
+            owner.setCity(newOwner.getCity());
+            owner.setTelephone(newOwner.getTelephone());
             owner = ownerService.update(owner);
         } catch (Exception e) {
-            owner = ownerService.create(newOwner);
+            owner = ownerService.create(owner);
         }
+        return owner;
     }
 
-    @DeleteMapping("/pets/{id}")
+    @DeleteMapping("/owners/{id}")
     ResponseEntity<String> delete(@PathVariable Long id) {
         try {
             ownerService.delete(id);
