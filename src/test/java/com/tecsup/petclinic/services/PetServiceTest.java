@@ -33,13 +33,13 @@ public class PetServiceTest {
 		long ID = 1;
 		String NAME = "Leo";
 		Pet pet = null;
-		
+
 		try {
 			pet = petService.findById(ID);
 		} catch (PetNotFoundException e) {
 			fail(e.getMessage());
 		}
-		
+
 		logger.info("" + pet);
 		assertThat(pet.getName(), is(NAME));
 
@@ -85,14 +85,15 @@ public class PetServiceTest {
 		List<Pet> pets = petService.findByOwnerId(OWNER_ID);
 
 		assertThat(pets.size(), is(SIZE_EXPECTED));
-		
+
 	}
 
 	/**
-	 *  To get ID generate , you need 
-	 *  setup in id primary key in your
-	 *  entity this annotation :
-	 *  	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 * To get ID generate , you need
+	 * setup in id primary key in your
+	 * entity this annotation :
+	 * 
+	 * @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 */
 	@Test
 	public void testCreatePet() {
@@ -101,21 +102,20 @@ public class PetServiceTest {
 		int OWNER_ID = 1;
 		int TYPE_ID = 1;
 
-		Pet pet = new Pet(PET_NAME, 1, 1, null);
-		
+		Pet pet = new Pet(PET_NAME, 1, 1);
+
 		Pet petCreated = petService.create(pet);
-		
+
 		logger.info("PET CREATED :" + petCreated);
 
-		//          ACTUAL                 , EXPECTED 
-		assertThat(petCreated.getId()      , notNullValue());
-		assertThat(petCreated.getName()    , is(PET_NAME));
-		assertThat(petCreated.getOwnerId() , is(OWNER_ID));
-		assertThat(petCreated.getTypeId()  , is(TYPE_ID));
+		// ACTUAL , EXPECTED
+		assertThat(petCreated.getId(), notNullValue());
+		assertThat(petCreated.getName(), is(PET_NAME));
+		assertThat(petCreated.getOwnerId(), is(OWNER_ID));
+		assertThat(petCreated.getTypeId(), is(TYPE_ID));
 
 	}
 
-	
 	/**
 	 * 
 	 */
@@ -131,7 +131,7 @@ public class PetServiceTest {
 		int UP_OWNER_ID = 2;
 		int UP_TYPE_ID = 2;
 
-		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID, null);
+		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID);
 
 		// Create record
 		logger.info(">" + pet);
@@ -149,8 +149,8 @@ public class PetServiceTest {
 		Pet upgradePet = petService.update(petCreated);
 		logger.info(">>>>" + upgradePet);
 
-		//        ACTUAL       EXPECTED
-		assertThat(create_id ,notNullValue());
+		// ACTUAL EXPECTED
+		assertThat(create_id, notNullValue());
 		assertThat(upgradePet.getId(), is(create_id));
 		assertThat(upgradePet.getName(), is(UP_PET_NAME));
 		assertThat(upgradePet.getTypeId(), is(UP_OWNER_ID));
@@ -167,7 +167,7 @@ public class PetServiceTest {
 		int OWNER_ID = 1;
 		int TYPE_ID = 1;
 
-		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID, null);
+		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID);
 		pet = petService.create(pet);
 		logger.info("" + pet);
 
@@ -176,12 +176,12 @@ public class PetServiceTest {
 		} catch (PetNotFoundException e) {
 			fail(e.getMessage());
 		}
-			
+
 		try {
 			petService.findById(pet.getId());
 			fail("Pet id = " + pet.getId() + " has not delete");
 		} catch (PetNotFoundException e) {
-		} 				
+		}
 
 	}
 }
