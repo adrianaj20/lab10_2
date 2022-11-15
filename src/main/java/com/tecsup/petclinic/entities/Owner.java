@@ -1,15 +1,11 @@
 package com.tecsup.petclinic.entities;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 @Entity(name = "owners")
-public class Owner {
-	
+public class Owner {	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
